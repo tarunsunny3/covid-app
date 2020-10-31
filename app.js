@@ -5,6 +5,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const path = require('path');
+const favicon = require('express-favicon');
 
 const app = express();
 
@@ -57,10 +58,17 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Favicon
+app.use(favicon(__dirname+'/public/favicon.ico/'));
+
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 
-const PORT = process.env.PORT || 5000;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 5000;
+}
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+
+app.listen(port, console.log(`Server started on port ${port}`));
