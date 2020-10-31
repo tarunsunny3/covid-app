@@ -1,0 +1,189 @@
+.table-warning {
+  background-color: orange;
+}
+.table {
+  padding: 30px;
+}
+.table td,
+.table th {
+  padding: 10px;
+}
+.table-primary {
+  background-color: aqua;
+}
+.table-danger {
+  background-color: red;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.one {
+  grid-column: 1 / 2;
+}
+.two {
+  grid-column: 2 / 3;
+}
+.table tr:nth-child(even) {
+  background-color: aqua;
+}
+
+.table tr:nth-child(odd) {
+  background-color: orange;
+}
+.table th {
+  cursor: pointer;
+}
+.container {
+  text-align: center;
+  margin: auto;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #242f3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #fff;
+  animation: loader 2s infinite ease;
+}
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-inner {
+  0% {
+    height: 0%;
+  }
+  25% {
+    height: 0%;
+  }
+  50% {
+    height: 100%;
+  }
+  75% {
+    height: 100%;
+  }
+  100% {
+    height: 0%;
+  }
+}
+.container1 {
+  width: 100vw;
+}
+.container1 ul li {
+  list-style: none;
+  display: inline-block;
+  text-align: center;
+  border-radius: 10px;
+  width: 25%;
+  margin: 0 2px;
+  padding: 8px 0;
+  font-size: 30px;
+  font-weight: bold;
+}
+.activeCasesDiv {
+  color: #002c56;
+
+  background: linear-gradient(
+    to bottom,
+    #a5c9fd 0%,
+    #a5c9fd 6%,
+    #a7cbff 8%,
+    #a5c9fd 11%,
+    #a7cbff 11%,
+    #aacffc 28%,
+    #b0d5ff 44%,
+    #b0d6fb 48%,
+    #b5dbff 62%,
+    #b4dbfc 62%,
+    #b8dffe 75%,
+    #bae2fb 79%,
+    #bce4fe 91%,
+    #bde6fa 96%,
+    #bee7fd 100%
+  );
+}
+.curedDiv {
+  color: #015b25;
+  background: linear-gradient(
+    to bottom,
+    #9ae69c 0%,
+    #9ce999 5%,
+    #9cea9e 6%,
+    #9cea9e 6%,
+    #a0e99a 10%,
+    #a3eb95 24%,
+    #adee92 36%,
+    #adee90 40%,
+    #b3ef8f 45%,
+    #b0f08f 46%,
+    #b4f18a 50%,
+    #b7f18d 51%,
+    #b6f08a 53%,
+    #baf18b 58%,
+    #c4f780 77%,
+    #c9f681 86%,
+    #ccfa7e 90%,
+    #cbf77c 94%,
+    #cff87e 96%,
+    #cff87e 100%
+  );
+}
+.deathsDiv {
+  color: #5a0502;
+  background: linear-gradient(
+    to bottom,
+    #ff8582 0%,
+    #fe8685 16%,
+    #ff908e 44%,
+    #fe908f 53%,
+    #ff9692 62%,
+    #ff9597 67%,
+    #ff9a98 84%,
+    #ff9b9b 85%,
+    #fe9c9d 91%,
+    #ff9e98 96%,
+    #ff9d9c 96%,
+    #ff9e9d 100%
+  );
+}
