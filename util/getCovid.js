@@ -33,7 +33,7 @@ const states = ['Andaman and Nicobar Islands','Andhra Pradesh','Arunachal Prades
 const url = 'https://www.mohfw.gov.in/';
 async function main1(){
     try {
-        const browser = await puppeteer.launch({headless: false,  args: ["--no-sandbox"]});
+        const browser = await puppeteer.launch({args: ["--no-sandbox"]});
         const page = await browser.newPage();
         await page.goto(url, {waitUntil: "load", timeout: 0});
         await page.waitForSelector('.statetable > tbody > tr > td');
