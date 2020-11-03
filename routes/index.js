@@ -10,8 +10,8 @@ router.get('/showChart', (req, res)=>{
     // res.sendFile(__dirname+"/index.html");
     res.render('chartPage');
 });
-router.get('/getData',  (req, res)=>{
-  main1();
+router.get('/getData',  async (req, res)=>{
+  await main1();
   Covid.find({}).sort({date: -1}).exec((err, result)=>{
     const { totalCases, cured, deaths} = result[0];
     //Send the whole latest data to the client

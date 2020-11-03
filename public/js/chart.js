@@ -2,8 +2,9 @@
 const button = document.getElementById("renderBtn");
 function renderChart(totalCases, cured, deaths, labels) {
     document.querySelector("body").style.width = "90vw";
+    
     var ctx = document.getElementById("myChart").getContext('2d');
-
+    console.log(document.getElementById("myChart").width);
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
