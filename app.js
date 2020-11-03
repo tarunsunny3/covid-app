@@ -5,10 +5,12 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const path = require('path');
+const cors = require('cors');
 const favicon = require('express-favicon');
 
 const app = express();
-
+//cors
+app.use(cors());
 // Passport Config
 require('./config/passport')(passport);
 
