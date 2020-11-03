@@ -37,8 +37,9 @@ async function main1(){
         const browser = await puppeteer.launch({headless: true, args: ["--no-sandbox", '--disable-setuid-sandbox']});
         console.log("sandbox");
         const page = await browser.newPage();
-        await page.goto(url, {waitUntil: ['load',"domcontentloaded"], timeout: 0});
+        await page.goto(url, {waitUntil: ['networkidle2',"domcontentloaded"], timeout: 0});
         console.log("dom after");
+        // await page.waitForNavigation({waitUntil: ['load',"domcontentloaded"], timeout: 0});
         await page.waitForSelector('.statetable > tbody > tr > td');
         // const result = page.content();
         // const result = await request.get(url);
