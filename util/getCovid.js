@@ -36,7 +36,7 @@ async function main1(){
         console.log("main1 is called");
         const browser = await puppeteer.launch({args: ["--no-sandbox"]});
         const page = await browser.newPage();
-        await page.goto(url, {waitUntil: "load", timeout: 0});
+        await page.goto(url, {waitUntil: "domcontentloaded", timeout: 0});
         await page.waitForSelector('.statetable > tbody > tr > td');
         // const result = page.content();
         // const result = await request.get(url);
