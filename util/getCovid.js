@@ -34,9 +34,11 @@ const url = 'https://www.mohfw.gov.in/';
 async function main1(){
     try {
         console.log("main1 is called");
-        const browser = await puppeteer.launch({args: ["--no-sandbox"]});
+        const browser = await puppeteer.launch({args: ["--no-sandbox", '--disable-setuid-sandbox']});
+        console.log("sandbox");
         const page = await browser.newPage();
         await page.goto(url, {waitUntil: "domcontentloaded", timeout: 0});
+        console.log("dom after");
         await page.waitForSelector('.statetable > tbody > tr > td');
         // const result = page.content();
         // const result = await request.get(url);
