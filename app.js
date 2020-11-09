@@ -6,9 +6,15 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
+const compression = require('compression');
 const favicon = require('express-favicon');
 
 const app = express();
+
+//compression
+app.use(compression());
+
+
 //cors
 app.use(cors());
 // Passport Config
