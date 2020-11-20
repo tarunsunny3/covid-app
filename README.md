@@ -1,6 +1,6 @@
-# Node.js & Passport Login
-
-This is a user login and registration app using Node.js, Express, Passport, Mongoose, EJS and some other packages.
+# COVID data of India using node and puppeteer
+This is an app which displays the COVID data like number of active cases, no of deaths, etc of all the states and
+Also it provides a user login and registration app using Node.js, Express, Passport, Mongoose, EJS and some other packages.
 
 ### Version: 2.0.0
 
