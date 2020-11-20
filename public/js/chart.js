@@ -1,10 +1,16 @@
 
 const button = document.getElementById("renderBtn");
+$(window).on('load', async ()=>{
+    const res = await axios.get('/getData');
+    $(".loader-wrapper").fadeOut("slow");
+    const {states, totalCases, cured, deaths } = await res.data;
+    labels = states;
+    renderChart(totalCases, cured, deaths, labels);
+});
 function renderChart(totalCases, cured, deaths, labels) {
-    document.querySelector("body").style.width = "90vw";
-    
+    // document.querySelector("body").style.width = "90vw";
     var ctx = document.getElementById("myChart").getContext('2d');
-    console.log(document.getElementById("myChart").width);
+    // console.log(document.getElementById("myChart").width);
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -53,61 +59,5 @@ function renderChart(totalCases, cured, deaths, labels) {
     });
  
 }
-const showChart = async ()=>{
-    const res = await axios.get('/getData');
-    $(".loader-wrapper").fadeOut("slow");
-    const {states, totalCases, cured, deaths } = res.data;
-    const ids =  [{"id":"IN.AN"},
-    {"id":"IN.AP"},
-    {"id":"IN.AR"},
-    {"id":"IN.AS"},
-    {"id":"IN.BR"},
-    {"id":"IN.CH"},
-    {"id":"IN.CT"},
-    {"id":"IN.DN"},
-    {"id":"IN.DD"},
-    {"id":"IN.DL"},
-    {"id":"IN.GA"},
-    {"id":"IN.GJ"},
-    {"id":"IN.HR"},
-    {"id":"IN.HP"},
-    {"id":"IN.JH"},
-    {"id":"IN.KA"},
-    {"id":"IN.KL"},
-    {"id":"IN.LD"},
-    {"id":"IN.MP"},
-    {"id":"IN.MH"},
-    {"id":"IN.MNL"},
-    {"id":"IN.ML"},
-    {"id":"IN.MZ"},
-    {"id":"IN.NL"},
-    {"id":"IN.OR"},
-    {"id":"IN.PY"},
-    {"id":"IN.PB"},
-    {"id":"IN.RJ"},
-    {"id":"IN.SK"},
-    {"id":"IN.TN"},
-    {"id":"IN.TR"},
-    {"id":"IN.UP"},
-    {"id":"IN.UT"},
-    {"id":"IN.WB"},
-    {"id":"IN.TG"},
-    {"id":"IN.JK"},
-    {"id":"IN.LA"}]
-    labels = states;
-    // console.log(labels);
-    renderChart(totalCases, cured, deaths, labels);
-}
-showChart();
 
-// button.onclick = async ()=>{
-//     const chart = document.getElementById('myChart');
-//     if(chart.style.display == 'none'){
-//         showChart();
 
-//         chart.style.display = 'block';
-//     }else{
-        
-//         chart.style.display = 'none';
-//     }
-// }

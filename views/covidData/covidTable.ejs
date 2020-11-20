@@ -1,45 +1,46 @@
+<head>
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<% include ./partials/navBar %>
 <div class="loader-wrapper">
-    <span class="loader"><span class="loader-inner"></span></span>
+    <span class="loader"><span class="loader-inner"></span>&nbsp;&nbsp;</span>
     <h1 style="color: white;">Fetching Data</h1>
 </div>
-
-<div class="container1">
-    <ul>
-        <li class="activeCasesDiv">Active Cases<br><i class="fa fa-toggle-on"></i><br><span id="active">82879749</span></li>
-        <li class="curedDiv">Discharged<br><i class="far fa-smile"></i><br><span id="cured">87992</span></li>
-        <li class="deathsDiv">Deaths<br><i class="far fa-frown"></i><br><span id="deaths">4893</span></li>
-    </ul>
-</div>
 <div class="container">
-    <select id="statesList" onchange="displayTable(this.value);">
-        <option value="">Select State</option>
-        <option value="all">All states</option>
-        <%for (i=0;i<states.length;i++){%>
-      
-            <option value="<%- i %>">
-                <%- states[i]%>
-            </option>
-     <%}%>
-    </select>
-</div>
-<!-- All states data Table -->
-<div class ="container">
-    <table class="table" id="allStates" style="display: none;margin: auto;">
-        <tr>
-        <th title="click to sort" onclick="sortTable(0, true);">S. no</th>
-        <th  onclick="sortTable(1, false);">State Name</th>
-        <th onclick="sortTable(2, true);">Active Cases</th>
-        <th onclick="sortTable(3, true);">Total Deaths</th>
-        <th onclick="sortTable(4, true);">Total Cured</th>
-        </tr>
+    <div class="container1">
+        <ul>
+            <li class="activeCasesDiv">Active Cases<br><i class="fa fa-toggle-on"></i><br><span id="active">82879749</span></li>
+            <li class="curedDiv">Discharged<br><i class="far fa-smile"></i><br><span id="cured">87992</span></li>
+            <li class="deathsDiv">Deaths<br><i class="far fa-frown"></i><br><span id="deaths">4893</span></li>
+        </ul>
+    </div>
+    <div >
+        <select id="statesList" onchange="displayTable(this.value);">
+            <option value="">Select State</option>
+            <option value="all">All states</option>
+            <%for (i=0;i<states.length;i++){%>
+          
+                <option value="<%- i %>">
+                    <%- states[i]%>
+                </option>
+         <%}%>
+        </select>
+    </div>
+    <!-- All states data Table -->
+    <div class ="container">
         
-        
+        <p id="showHint" class="bg-info text-light mt-2" style="display: none;">Click on the table headers to sort that column</p>
+        <table class="table table-bordered" id="allStates" style="display: none;margin: auto;">
         </table>
+    </div>
+    
+    <!-- One state Table -->
+    <div class="container" id="stateTable">
+    </div>
 </div>
 
-<!-- One state Table -->
-<div class="container" id="stateTable">
-</div>
 
 <!-- <script src="jquery.tablesort.js"></script> -->
 <script src="./js/table.js"></script>

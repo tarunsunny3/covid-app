@@ -1,3 +1,9 @@
+
+<!-- <div class="loader-wrapper">
+  <span class="loader"><span class="loader-inner"></span>&nbsp;&nbsp;</span>
+  <h1 style="color: white;">Fetching Data</h1>
+</div> -->
+<% include ./partials/navBar %>
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body text-center">
@@ -10,3 +16,10 @@
     </div>
   </div>
 </div>
+<script>
+  $(window).on('load', async ()=>{
+    const res = await axios.get('/storeCovidData');
+    // $(".loader-wrapper").fadeOut("slow");
+    
+});
+</script>

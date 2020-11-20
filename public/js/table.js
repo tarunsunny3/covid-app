@@ -6,6 +6,7 @@ $(window).on('load', async ()=>{
     const res = await axios.get('/getData');
     $(".loader-wrapper").fadeOut("slow");
     const {states, totalCases, cured, deaths } = await res.data;
+    //Sum up the total number of cases active deaths and cured 
     const reducer = (accumulator, currentValue) => Number(accumulator) + Number(currentValue);
     const sumCases = totalCases.reduce(reducer);
     const sumCured = cured.reduce(reducer);
@@ -32,15 +33,15 @@ const displayTable = (i)=>{
         return;
     }else{
         const {states, activeCases, cured, deaths} = covidInfo;
-        table = `<table class="table" style="margin: auto;">
-            <tr class="table-danger">
+        table = `<table class="table" ">
+            <tr class="table-success">
                 <th>S. no</th>
                 <th>State Name</th>
                 <th>Active Cases</th>
                 <th>Total Deaths</th>
                 <th>Total Cured</th>
             </tr>
-            <tr class="table-primary">
+            <tr class="table-secondary">
                 <td>${Number(i)+1}</td>
                 <td>${states[i]}</td>
                 <td>${activeCases[i]}</td>
@@ -64,8 +65,19 @@ const displayTable = (i)=>{
 const showFullTable = async ()=>{
     const {states, activeCases, cured, deaths} = covidInfo;
     let tableData ;
+    tableData = `
+    
+    <tr class="table-info">
+    <th title="click to sort" onclick="sortTable(0, true);">S. no</th>
+    <th onclick="sortTable(1, false);">State Name</th>
+    <th onclick="sortTable(2, true);">Active Cases</th>
+    <th onclick="sortTable(3, true);">Total Deaths</th>
+    <th onclick="sortTable(4, true);">Total Cured</th>
+    </tr>
+    `;
+
     for(i=0;i<states.length;i++){
-        tableData = `
+        tableData += `
             <tr>
                 <td>${i+1}</td>
                 <td>${states[i]}</td>
@@ -74,11 +86,15 @@ const showFullTable = async ()=>{
                 <td>${cured[i]}</td>  
             </tr>
         `;
-        var tempRow = document.createElement('tr');
-        tempRow.innerHTML = tableData;
-        allStateTable.insertAdjacentElement("beforeend", tempRow);
+        // var tempRow = document.createElement('tr');
+        // // tempRow.className = "table-primary";
+        // tempRow.innerHTML = tableData;
+        // allStateTable.insertAdjacentElement("beforeend", tempRow);
     }
+
+    allStateTable.innerHTML = tableData;
     if(allStateTable.style.display == 'none'){
+        $('#showHint').css('display', 'block');
         allStateTable.style.display = 'table';
     }
     if(stateTable.style.display != 'none'){

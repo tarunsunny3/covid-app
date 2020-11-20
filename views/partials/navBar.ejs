@@ -1,0 +1,48 @@
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark position-relative">
+    <a class="navbar-brand" href="#">Covid</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CovidData</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/chart">Chart</a>
+            <a class="dropdown-item" href="/covidTable">Covid table</a>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <%if (!user) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/login"><i class="fa fa-sign-in-alt" aria-hidden="true"></i>&nbsp;Login</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/users/register"> <span><i class="fas fa-user-plus"></i></span>&nbsp;Register</a>
+          </li>
+          <% }else{ %>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+            </li>
+            <% } %>
+      </ul>
+    </div>
+  </nav>
+  <script>
+
+      $('ul').find('li.active').removeClass('active');
+      $('a[href$="' + location.pathname + '"]').addClass('active');
+  </script>

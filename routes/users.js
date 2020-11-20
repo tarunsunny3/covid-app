@@ -2,18 +2,20 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+
 // Load User model
 const User = require('../models/User');
 const { forwardAuthenticated, checkRole, ensureAuthenticated } = require('../config/auth');
+const { errors } = require('puppeteer');
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login', {title: "Login"}));
 
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
+router.get('/register', forwardAuthenticated, (req, res) => res.render('register', {title: "Register"}));
 router.get('/userData', ensureAuthenticated, checkRole('Admin'), async (req, res)=>{
     const results = await User.find({role: "User"});
-    res.render('userData', {results: results});
+    res.render('userData', {results: results, title: "User Data"});
 })
 // Register
 router.post('/register', (req, res) => {
@@ -34,6 +36,7 @@ router.post('/register', (req, res) => {
 
   if (errors.length > 0) {
     res.render('register', {
+      title: "Reggister",
       errors,
       name,
       email,
@@ -46,6 +49,7 @@ router.post('/register', (req, res) => {
         errors.push({ msg: 'Email already exists' });
         res.render('register', {
           errors,
+          title: "Register",
           name,
           email,
           password,
@@ -86,7 +90,7 @@ router.post('/login',
     // successRedirect: '/dashboard',
     failureRedirect: '/users/login',
     failureFlash: true
-  }), function(req, res, next){
+  }), function(req, res){
       if(req.user.role === "Admin"){
         res.redirect('/dashboard-admin');
       }else{
@@ -95,6 +99,7 @@ router.post('/login',
   });
 // Logout
 router.get('/logout', (req, res) => {
+  //This req.logout logs the user out using the passport js configuration we did
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
@@ -107,9 +112,68 @@ router.delete('/delete/:id', ensureAuthenticated, checkRole('Admin'), (req, res)
     if(err){
       console.log(err);
     }else{
-
       res.send("Success");
     }
   })
 });
+
+//Get details of one user by id
+router.get('/displayUser/:id', (req, res)=>{
+  const id = req.params.id;
+  User.findOne({_id:id}, (err, user)=>{
+    if(err){
+      res.render('404Error', {title: 'Error'});
+    }else{
+      if(!user){
+        req.flash('error_msg', "No user is found with that id");
+        console.log("No user is found with that id");
+        res.redirect('/login');
+       
+      }else{
+         res.render('userDetails', {title: "User Details", user: user});
+      }
+    }
+  })
+})
+
+//Update user by id
+router.get('/editUser/:id', (req, res)=>{
+  const id = req.params.id;
+  User.findOne({_id:id}, (err, user)=>{
+    if(err){
+      res.render('404Error', {title: 'Error'});
+    }else{
+      if(!user){
+        req.flash('error_msg', "No user is found with that id");
+        console.log("No user is found with that id");
+        res.redirect('/login');
+       
+      }else{
+         res.render('editData', {title: "Update user", user: user});
+      }
+    }
+  })
+ 
+})
+//Post request for updation of user details
+
+router.post('/editData', (req, res)=>{
+  const {_id, name, family, covid} = req.body;
+  const isCovidPositive = covid=='Yes'? true: false;
+  // res.send(isCovidPositive);
+  const updatedUser = {
+    name,
+    numbOfFamilyMembers:family,
+    isCovidPositive 
+  }
+  User.findByIdAndUpdate(_id, updatedUser, {new: true},(err, updated)=>{
+    if(err){
+      console.log(err);
+    }else{
+      console.log(updated);
+      req.flash('success_msg', 'Successfully updated the data');
+      res.redirect('/users/userData');
+    }
+  })
+})
 module.exports = router;

@@ -1,30 +1,44 @@
-<h1>
-    UserData
-</h1>
-<table class="table table-dark">
-    <tr>
-        <th>Role</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Date</th>
-        <th colspan="2">Action</th>
-    </tr>
-    <!-- Get data of users from the express backend and loop through it to display data-->
-    <% results.forEach((user)=>{%>
+
+
+<% include ./partials/navBar %>
+<div class="container-fluid mt-4" >
+    <% include ./partials/messages %>
+</div>
+<div class="container-fluid">
+    <h1 class="mb-4" style="text-align: center;">
+        UserData
+    </h1>
+    <table class="table table-info table-striped table-hover">
         <tr>
-            <td><%- user.role %></td>
-            <td><%- user.name %></td>
-            <td><%- user.email %></td>
-            <td><%- user.date %></td>
-            <td><button onclick="deleteUser('<%- user._id %>');" class="btn btn-primary btn-block">Delete</button></td>
-            <td><button class="btn btn-info btn-block">Edit</button></td>
+            <th>Name</th>
+            <th>Family</th>
+            <th>Email</th>
+            <th>CovidPositive?</th>
+            <th colspan="2">Action</th>
         </tr>
-        
-        <% }) ;%>
-</table>
+        <!-- Get data of users from the express backend and loop through it to display data-->
+        <% results.forEach((user)=>{%>
+            <tr>
+                <td><%- user.name %></td>
+                <td><%- user.numbOfFamilyMembers %></td>
+                <td><%- user.email %></td>
+                <% if(user.isCovidPositive){ %>
+                    <td><span><i class="fa fa-check" aria-hidden="true"></i></span></td>
+                <%}else {%>
+                    <td><i class="fas fa-times"></i></td>
+                <%}%>
+                <td><button onclick="deleteUser('<%- user._id %>');" class="btn btn-danger">Delete</button></td>
+                <td><a href="/users/editUser/<%- user._id %>"class="btn btn-primary">Edit</a></td>
+            </tr>
+            
+            <% }) ;%>
+    </table>
+</div>
+
 <script>
     deleteUser = (id)=>{
-        $.ajax({
+        if(confirm("Are you sure?..The user will be deleted permanently..Press OK to continue")){
+            $.ajax({
             type: "DELETE",
             url: "/users/delete/"+id,
             success: function(response){
@@ -32,5 +46,7 @@
                 window.location.href ='/dashboard-admin';
             }
         })
+        }
+        
     }
 </script>

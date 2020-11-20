@@ -10,8 +10,11 @@ router.get('/showChart', (req, res)=>{
     // res.sendFile(__dirname+"/index.html");
     res.render('chartPage');
 });
-router.get('/getData',  async (req, res)=>{
+router.get('/storeCovidData', async (req, res)=>{
   await main1();
+})
+router.get('/getData',  async (req, res)=>{
+  
   Covid.find({}).sort({date: -1}).exec((err, result)=>{
     const { totalCases, cured, deaths} = result[0];
     //Send the whole latest data to the client
@@ -46,21 +49,19 @@ router.get('/getDataById/:index', async (req, res)=>{
 })
 // Welcome Page
 
-router.get('/', forwardAuthenticated, (req, res) => {
-  // myFunc();
+router.get('/', forwardAuthenticated,  (req, res) => {
+
   res.render('welcome', {title: "Welcome"});
 });
 
 // Dashboard
 router.get('/dashboard',  ensureAuthenticated, checkRole("User"),(req, res) =>{
- 
   res.render('dashboard', {
-    user: req.user
-  })
-
- 
+    user: req.user,
+    title: req.user.name
+  });
 });
-router.get('/dashboard-admin', ensureAuthenticated,checkRole("Admin"),(req, res) =>{
+router.get('/dashboard-admin', ensureAuthenticated, checkRole("Admin"),(req, res) =>{
 
     res.render('dashboard-admin', {
       user: req.user,

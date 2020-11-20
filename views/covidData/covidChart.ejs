@@ -1,10 +1,17 @@
-<!-- <button id="renderBtn">
-    Render
-</button> -->
+<head>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<% include ./partials/navBar %>
 <div class="loader-wrapper">
-    <span class="loader"><span class="loader-inner"></span></span>
+    <span class="loader"><span class="loader-inner">&nbsp;&nbsp;
+    </span></span>
     <h1 style="color: white;">Fetching Data</h1>
 </div>
-<canvas id="myChart" height="150"></canvas>
+<div class="container mt-2" style="text-align: center;">
+    <h1>Covid Chart</h1> 
+    <p>Click on any of the labels to hide that plot</p>
+    <canvas id="myChart" height="150"></canvas>
+</div>
+
 
 <script src="./js/chart.js"></script>

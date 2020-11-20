@@ -1,0 +1,20 @@
+<% include ./partials/navBar %>
+<style>
+    body{
+        background-image: linear-gradient(to left, purple, pink);
+    }
+</style>
+<div  style="margin: auto;">
+    <!-- <div class="card card-body text-center"> -->
+        <div style="text-align: left;">
+            <h4>Name: <%= user.name %></h4>
+            <h4>Family Members: <%= user.numbOfFamilyMembers %></h4>
+            <h4>Email: <%= user.email %></h4>
+            <h4>Are you covid positive? : <%= user.isCovidPositive ? "Yes" : "No" %></h4>
+        </div>
+        
+      <!-- </div> -->
+
+   
+    
+</div>

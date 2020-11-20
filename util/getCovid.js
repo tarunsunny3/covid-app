@@ -31,6 +31,7 @@ const states = ['Andaman and Nicobar Islands','Andhra Pradesh','Arunachal Prades
 ]
 
 const url = 'https://www.mohfw.gov.in/';
+
 async function main1(){
     try {
         console.log("main1 is called");
@@ -76,21 +77,16 @@ async function main1(){
         //Function to store in DataBase
         // const moddate = new Date();
         // moddate.setHours(06);
-        const saveDataDB = ()=>{
+        const saveDataDB = async ()=>{
           const covidData = new Covid({
             cured: curedArray,
             deaths: deathsArray,
             totalCases: totalCasesArray
           })
-          covidData.save().then((data)=>{
-            console.log("Successfully saved Covid data");
-          
-          }).catch((err)=>{
-            console.log(err);
-          })
+          await covidData.save();
         };
         //Save in Database only if it is not present already
-        Covid.find({}).sort({date: -1}).exec((err, result)=>{
+        Covid.find({}).sort({date: -1}).exec(async (err, result)=>{
             if(result.length > 0){
               const date = new Date(result[0].date);
               const now = new Date();
@@ -99,13 +95,13 @@ async function main1(){
               const sameDay = (date.getDate() == now.getDate()) && (date.getHours() < 8 && now.getHours() > 8);
               if(atEight || isDiffDay || sameDay){
                 console.log("yes");
-                saveDataDB();
+                await saveDataDB();
               }else{
                 console.log("NO");
               }
             }else{
               console.log("yes");
-              saveDataDB();
+              await saveDataDB();
     
             }
         });

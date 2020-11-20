@@ -1,3 +1,18 @@
-<h1 class="mt-4">Dashboard</h1>
-<p class="lead mb-3">Welcome <%= user.name %></p>
-<a href="/users/logout" class="btn btn-secondary">Logout</a>
+<% include ./partials/navBar %>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <!-- Display the safety and condolence message if the user is covid positive -->
+        <% if(user.isCovidPositive){%>
+            <h3>Stay safe and get well soon</h3>
+        <% }else{%>
+            <!-- Display the happy and safe message if the user is not covid positive -->
+            <h3>Good to see you safe in this pandemic</h3>
+            
+        <% }%>
+        <h1 class="display-3 mb-4">Welcome to <%= user.name %>'s Dashboard</h1>
+    </div>
+</div>
+<div class="container">
+    <a href="/users/displayUser/<%= user._id %>" class="mb-5 btn btn-outline-primary btn-block">View Info</a>
+    <a href="/users/editUser/<%= user._id %>" class="btn btn-outline-secondary btn-block">Update</a>
+</div>
