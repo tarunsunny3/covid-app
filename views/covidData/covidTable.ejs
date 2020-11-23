@@ -4,17 +4,16 @@
     <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <% include ./partials/navBar %>
-<div class="loader-wrapper">
-    <span class="loader"><span class="loader-inner"></span>&nbsp;&nbsp;</span>
-    <h1 style="color: white;">Fetching Data</h1>
-</div>
+
 <div class="container">
     <div class="container1">
+       <div class="blocks">
         <ul>
             <li class="activeCasesDiv">Active Cases<br><i class="fa fa-toggle-on"></i><br><span id="active">82879749</span></li>
             <li class="curedDiv">Discharged<br><i class="far fa-smile"></i><br><span id="cured">87992</span></li>
             <li class="deathsDiv">Deaths<br><i class="far fa-frown"></i><br><span id="deaths">4893</span></li>
         </ul>
+       </div>
     </div>
     <div >
         <select id="statesList" onchange="displayTable(this.value);">
@@ -31,7 +30,7 @@
     <!-- All states data Table -->
     <div class ="container">
         
-        <p id="showHint" class="bg-info text-light mt-2" style="display: none;">Click on the table headers to sort that column</p>
+        <p id="showHint" class="bg-info text-light" style="display: none;">Click on the table headers to sort that column</p>
         <table class="table table-bordered" id="allStates" style="display: none;margin: auto;">
         </table>
     </div>
@@ -40,7 +39,11 @@
     <div class="container" id="stateTable">
     </div>
 </div>
-
+<% include ./partials/footer %>
+<div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span>&nbsp;&nbsp;</span>
+    <h1 style="color: white;">Fetching Data</h1>
+</div>
 
 <!-- <script src="jquery.tablesort.js"></script> -->
 <script src="./js/table.js"></script>

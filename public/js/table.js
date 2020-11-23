@@ -86,10 +86,6 @@ const showFullTable = async ()=>{
                 <td>${cured[i]}</td>  
             </tr>
         `;
-        // var tempRow = document.createElement('tr');
-        // // tempRow.className = "table-primary";
-        // tempRow.innerHTML = tableData;
-        // allStateTable.insertAdjacentElement("beforeend", tempRow);
     }
 
     allStateTable.innerHTML = tableData;

@@ -58,6 +58,7 @@ app.use(passport.session());
 // Connect flash
 app.use(flash());
 
+
 // Global variables
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
@@ -79,5 +80,10 @@ if (port == null || port == "") {
   port = 5000;
 }
 
-
+//404 redirects
+//Whenever there will be a 404 not found error then redirect all such pages to 
+// Not found error page where we will render 404Error.ejs page
+app.use(function(req,res){
+  res.status(404).render('404Error.ejs', {title: "Not found"});
+});
 app.listen(port, console.log(`Server started on port ${port}`));

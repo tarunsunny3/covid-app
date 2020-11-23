@@ -1,9 +1,36 @@
+<!-- <head>
+  <link rel="stylesheet" href="styles/styles.css">
+</head> -->
 
-<!-- <div class="loader-wrapper">
-  <span class="loader"><span class="loader-inner"></span>&nbsp;&nbsp;</span>
-  <h1 style="color: white;">Fetching Data</h1>
-</div> -->
 <% include ./partials/navBar %>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/images/covid1.jpg" width="100%" alt="covid_myth">
+
+    </div>
+    <div class="carousel-item">
+      <img src="/images/covid2.jpg" width="100%" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/covid3.png" width="100%" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/covid4.png" width="100%" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/covid5.png" width="100%" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+   
+  </a>
+  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+  </a>
+</div>
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body text-center">
@@ -16,10 +43,11 @@
     </div>
   </div>
 </div>
+<% include ./partials/footer %>
+
 <script>
   $(window).on('load', async ()=>{
     const res = await axios.get('/storeCovidData');
-    // $(".loader-wrapper").fadeOut("slow");
     
 });
 </script>

@@ -166,11 +166,11 @@ router.post('/editData', (req, res)=>{
     numbOfFamilyMembers:family,
     isCovidPositive 
   }
-  User.findByIdAndUpdate(_id, updatedUser, {new: true},(err, updated)=>{
+  User.findByIdAndUpdate(_id, updatedUser, {new: true, useFindAndModify: false},(err, updated)=>{
     if(err){
       console.log(err);
     }else{
-      console.log(updated);
+      // console.log(updated);
       req.flash('success_msg', 'Successfully updated the data');
       res.redirect('/users/userData');
     }
