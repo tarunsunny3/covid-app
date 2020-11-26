@@ -4,13 +4,14 @@
     <p class="lead mb-3">Welcome <%= user.name %></p>
     <a href="#" id="logout" class="btn btn-secondary">Logout</a>
     <a href="/users/userData" class="btn btn-secondary">GetUserData</a>
+    
+    <a href="/users/download" class="btn btn-primary">View Data</a>
 </div>
 <% include ./partials/footer %>
 <script>
-    $('#logout').click((event)=>{
-        // event.preventDefault();
-        if(confirm("Are you sure to log out?")){
-            event.target.href = "/users/logout";
-        }
-    })
+  
+    const downloadData = (event)=>{
+        event.preventDefault();
+        console.log($('#download').attr('href')); 
+    }
 </script>

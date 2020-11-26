@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const path = require('path');
+const fs = require('fs');
+const pdf= require('pdfkit');
 const passport = require('passport');
 
 // Load User model
@@ -175,5 +178,22 @@ router.post('/editData', (req, res)=>{
       res.redirect('/users/userData');
     }
   })
+})
+
+router.get('/download', async (req, res)=>{
+  const users = await User.find({role: 'User'});
+    let userData ="";
+    users.forEach((user, i)=>{
+      userData  += `${i+1}. Name: ${user.name}\n  Email: ${user.email}\n\n`;
+    })
+    const doc = new pdf;
+    doc.pipe(fs.createWriteStream('./public/pdfs/usersDetails.pdf'));
+    doc
+    .font('Times-Roman')
+    .fontSize(25)
+    .text(userData, 100, 100);
+    // doc.save();
+    doc.end();
+    res.render('displayComments', {userData, title: "Comments"});
 })
 module.exports = router;
