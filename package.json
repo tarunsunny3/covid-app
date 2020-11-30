@@ -1,5 +1,5 @@
 {
-  "name": "Covid_App",
+  "name": "covid_app",
   "version": "2.0.0",
   "description": "App which shows covid data of India",
   "main": "app.js",
