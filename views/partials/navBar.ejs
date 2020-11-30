@@ -8,7 +8,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+    
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -17,12 +17,17 @@
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
+        <%if (user) { %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">CovidData</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="/chart">Chart</a>
             <a class="dropdown-item" href="/covidTable">Covid table</a>
           </div>
+        </li>
+        <% } %>
+        <li class="nav-item">
+          <a class="nav-link" href="/comment">Contact Us</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right">

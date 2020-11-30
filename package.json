@@ -1,14 +1,14 @@
 {
-  "name": "node_passport_login",
+  "name": "Covid_App",
   "version": "2.0.0",
-  "description": "Node.js authentication with Passport",
+  "description": "App which shows covid data of India",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "devStart": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tarun",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const moment = require('moment');
+// const moment = require('moment');
+const Comment = require('../models/Comment');
 const Covid = require('../models/CovidData');
 const { ensureAuthenticated, forwardAuthenticated, checkRole} = require('../config/auth');
 const {states, main1} = require('../util/getCovid');
@@ -49,7 +50,7 @@ router.get('/getDataById/:index', async (req, res)=>{
 })
 // Welcome Page
 
-router.get('/', forwardAuthenticated,  (req, res) => {
+router.get('/', (req, res) => {
 
   res.render('welcome', {title: "Welcome"});
 });
@@ -69,6 +70,26 @@ router.get('/dashboard-admin', ensureAuthenticated, checkRole("Admin"),(req, res
     })
 
   });
+//Contact us form
+router.get('/comment', (req, res)=>{
+  res.render('contactus', {title: "Contact Us"});
+})
+//Post a user comment
+router.post('/comment', (req, res)=>{
+  const {email, message} = req.body;
 
-
+  const comment= new Comment({
+    email,
+    message
+  })
+  comment.save().then(
+    ()=>{
+      console.log("Saved successfully");
+    }
+  ).catch((error)=>{
+    console.log("Error is "+error);
+  })
+  req.flash('success_msg', "Successfully posted your comment!!");
+  res.redirect('/comment');
+})
 module.exports = router;

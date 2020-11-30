@@ -3,13 +3,14 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
-const pdf= require('pdfkit');
+const Comment = require('../models/Comment');
+
 const passport = require('passport');
 
 // Load User model
 const User = require('../models/User');
 const { forwardAuthenticated, checkRole, ensureAuthenticated } = require('../config/auth');
-const { errors } = require('puppeteer');
+// const { errors } = require('puppeteer');
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login', {title: "Login"}));
@@ -180,20 +181,27 @@ router.post('/editData', (req, res)=>{
   })
 })
 
-router.get('/download', async (req, res)=>{
-  const users = await User.find({role: 'User'});
-    let userData ="";
-    users.forEach((user, i)=>{
-      userData  += `${i+1}. Name: ${user.name}\n  Email: ${user.email}\n\n`;
-    })
-    const doc = new pdf;
-    doc.pipe(fs.createWriteStream('./public/pdfs/usersDetails.pdf'));
-    doc
-    .font('Times-Roman')
-    .fontSize(25)
-    .text(userData, 100, 100);
-    // doc.save();
-    doc.end();
-    res.render('displayComments', {userData, title: "Comments"});
+router.get('/download', ensureAuthenticated, checkRole('Admin'), async (req, res)=>{
+  const comments = await Comment.find({});
+
+  let result={
+    comments: []
+  };
+  comments.forEach((comment)=>{
+    let msg = {
+      email: comment.email,
+      message: comment.message
+    }
+    // console.log(msg);
+    result.comments.push(msg);
+  });
+  
+  fs.writeFileSync('./public/pdfs/comments.json', JSON.stringify(result), function (err) {
+    if (err) throw err;
+    console.log('Written!');
+  });
+  // res.send("Success");
+  res.download('./public/pdfs/comments.json');
+  //  res.render('displayComments', {result, title: "Comments"});
 })
 module.exports = router;

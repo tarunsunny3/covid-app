@@ -27,14 +27,15 @@ body {
 }
 .footer {
   position: relative;
-  height: 400px;
+  height: 250px;
   background-color: #343a40;
   color: #d3d3d3;
   margin-top: 20px;
 }
 .footer .footer-content {
   border: 1px solid pink;
-  height: 350px;
+  text-align: center;
+  height: 250px;
   display: flex;
 }
 
@@ -57,7 +58,7 @@ body {
   display: inline-block;
   font-size: 1.3em;
   border-radius: 5px;
-  margin-top: 40px;
+  margin-top: 8px;
   transition: all 1s;
 }
 .footer .footer-content .about .social-media a:hover {
@@ -82,6 +83,9 @@ body {
   border: none;
 }
 #stateTable {
+  margin-top: 3%;
+}
+#showHint {
   margin-top: 3%;
 }
 .table th {
