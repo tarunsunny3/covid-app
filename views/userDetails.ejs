@@ -1,20 +1,67 @@
 <% include ./partials/navBar %>
 <style>
-    body{
-        background-image: linear-gradient(to left, purple, pink);
-    }
+   .user{
+       /* width: 50%; */
+       text-align: center;
+       margin: auto;
+       margin-top: 1%;
+   }
+   .data{
+       margin: auto;
+       margin-top: 2%;
+       text-align: left;
+       
+   }
+   .right{
+       padding-left: 20%;
+       /* margin-left: 10px; */
+       /* text-align: center; */
+   }
+   /* .data tr td:nth-child(even){
+       
+   }
+   .data tr td:nth-child(odd){
+        text-align: right;
+   } */
 </style>
-<div  style="margin: auto;">
-   
-        <div style="text-align: left;">
-            <h4>Name: <%= user.name %></h4>
-            <h4>Family Members: <%= user.numbOfFamilyMembers %></h4>
-            <h4>Email: <%= user.email %></h4>
-            <h4>Are you covid positive? : <%= user.isCovidPositive ? "Yes" : "No" %></h4>
-        </div>
-        
-  
-
-   
-    
+<div class="user">
+        <h1>User Information</h1>
+        <h2><i class="fa fa-user fa-4x"></i></h2>
+        <table class="data">
+            <tr>
+                <td>
+                    <h4>Name:</h4> 
+                </td>
+                <td class="right">
+                    <h4><%= user.name %> </h4>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>Family Members:</h4>
+                </td>
+                <td class="right">
+                    <h4><%= user.numbOfFamilyMembers %> </h4>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>Email: </h4>
+                </td>
+                <td class="right">
+                    <h4><%= user.email %></h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>Covid positive? :</h4>
+                </td>
+                <td class="right">
+                    <h4> <%= user.isCovidPositive ? "Yes" : "No" %></h4>
+                </td>
+            </tr>
+        </table>
+           
 </div>

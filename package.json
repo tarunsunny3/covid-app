@@ -17,21 +17,21 @@
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-favicon": "^2.0.1",
-    "express-session": "^1.15.6",
+    "express-session": "^1.17.1",
     "moment": "^2.29.1",
-    "mongoose": "^5.7.5",
+    "mongoose": "^5.10.18",
     "node-fetch": "^2.6.1",
-    "passport": "^0.4.0",
+    "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pdfkit": "^0.11.0",
-    "puppeteer": "^5.4.1"
+    "puppeteer": "^5.5.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.19.4"
   },
   "engines": {
     "node": "14.5.0"

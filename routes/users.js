@@ -108,6 +108,87 @@ router.get('/logout', (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
+
+//Change Password
+router.post('/changePass', (req, res)=>{
+  const { email, oldpassword, newpassword } = req.body;
+  let errors = [];
+
+  if (!email || !oldpassword || !newpassword) {
+    errors.push({ msg: 'Please enter all fields' });
+  }
+
+
+  if (oldpassword.length < 6 || newpassword.length < 6) {
+    errors.push({ msg: 'Password must be at least 6 characters' });
+  }
+
+  if (errors.length > 0) {
+    res.render('forgotPass', {
+      title: "Forgot Password",
+      errors,
+      email,
+      oldpassword,
+      newpassword
+    });
+  } else {
+    User.findOne({ email: email }).then(user => {
+      if (user) {
+        
+       bcrypt.compare(user.password, oldpassword, (err, isMatch)=>{
+         if(err){
+           console.log(err);
+         }else{
+           if(isMatch){
+             bcrypt.hash(newpassword, 10, (err, hashedPass)=>{
+               if(err){
+                 console.log(err);
+               }else{
+                User.findOneAndUpdate({email: email}, {password: hashedPass}, {new: true}, (err, updated)=>{
+                  if(err){
+                    console.log(err);
+                  }else{
+                    console.log(updated);
+                    req.flash(
+                      'success_msg',
+                      'Password changed successfully'
+                    );
+                    res.redirect('/users/login');
+         
+                  }
+                })
+               }
+                
+             })
+           }else{
+            console.log(oldpassword);
+            req.flash(
+            'error_msg',
+            'Entered Old password is incorrect'
+            );
+            res.redirect('/forgotPassword');
+           }
+         }
+       })
+
+        // bcrypt.genSalt(10, (err, salt) => {
+        //   bcrypt.hash(newUser.password, salt, (err, hash) => {
+        //     if (err) throw err;
+        //     newUser.password = hash;
+        //     newUser
+        //       .save()
+        //       .then(user => {
+        //         
+        //       })
+        //       .catch(err => console.log(err));
+        //   });
+        // });
+      }
+    });
+  }
+})
+
+
 //Delete a user by id
 router.delete('/delete/:id', ensureAuthenticated, checkRole('Admin'), (req, res)=>{
   const id = req.params.id;

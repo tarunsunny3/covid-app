@@ -74,6 +74,12 @@ router.get('/dashboard-admin', ensureAuthenticated, checkRole("Admin"),(req, res
 router.get('/comment', (req, res)=>{
   res.render('contactus', {title: "Contact Us"});
 })
+//Forgot Password Page
+router.get('/forgotPassword', (req, res)=>{
+  res.render('forgotPass', {
+    title: "Forgot Password"
+  })
+})
 //Post a user comment
 router.post('/comment', (req, res)=>{
   const {email, message} = req.body;
