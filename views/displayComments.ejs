@@ -1,2 +1,36 @@
-<h3><%= result %></h3>
-<a href="/pdfs/comments.json" class="btn btn-primary" download="comments.json">Download data</a>
+<% include ./partials/navBar %>
+<style>
+    .center{
+        width: 50%;
+        margin:auto;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        text-align: center;
+    }
+    .comms{
+        text-align: left;
+    }
+</style>
+<div class="center">
+        <div class="comms">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Email</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                
+                <% comments.forEach((comment, i)=>{ %>
+                        <!-- <% i % 2 == 0 %> -->
+                        <tr class="table <%= i % 2==0 ? 'table-warning' : 'table-light'%>">
+                            <td><%= comment.email %></td>
+                            <td><%= comment.message %></td>
+                        </tr>
+                
+                <% })%>
+                </table>
+        </div>
+        <a href="/pdfs/comments.json" class="btn btn-primary" download="comments.json">Download data</a>
+        
+</div>

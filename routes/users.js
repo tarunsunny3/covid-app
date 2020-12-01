@@ -65,10 +65,8 @@ router.post('/register', (req, res) => {
           email,
           password
         });
-
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(newUser.password, salt);
             newUser.password = hash;
             newUser
               .save()
@@ -80,8 +78,7 @@ router.post('/register', (req, res) => {
                 res.redirect('/users/login');
               })
               .catch(err => console.log(err));
-          });
-        });
+      
       }
     });
   }
@@ -111,44 +108,38 @@ router.get('/logout', (req, res) => {
 
 //Change Password
 router.post('/changePass', (req, res)=>{
-  const { email, oldpassword, newpassword } = req.body;
+  const { email, newpassword1, newpassword2 } = req.body;
   let errors = [];
 
-  if (!email || !oldpassword || !newpassword) {
+  if (!email || !newpassword1 || !newpassword2) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
 
-  if (oldpassword.length < 6 || newpassword.length < 6) {
+  if (newpassword1.length < 6 || newpassword2.length < 6) {
     errors.push({ msg: 'Password must be at least 6 characters' });
   }
-
+  if(newpassword1 !== newpassword2){
+    errors.push({ msg: 'Both the passwords should be the same' });
+  }
   if (errors.length > 0) {
     res.render('forgotPass', {
       title: "Forgot Password",
       errors,
       email,
-      oldpassword,
-      newpassword
+      newpassword1,
+      newpassword2
     });
   } else {
     User.findOne({ email: email }).then(user => {
-      if (user) {
-        
-       bcrypt.compare(user.password, oldpassword, (err, isMatch)=>{
-         if(err){
-           console.log(err);
-         }else{
-           if(isMatch){
-             bcrypt.hash(newpassword, 10, (err, hashedPass)=>{
-               if(err){
-                 console.log(err);
-               }else{
+            if(user){
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPass = bcrypt.hashSync(newpassword1, salt);
                 User.findOneAndUpdate({email: email}, {password: hashedPass}, {new: true}, (err, updated)=>{
                   if(err){
                     console.log(err);
                   }else{
-                    console.log(updated);
+                    // console.log(updated);
                     req.flash(
                       'success_msg',
                       'Password changed successfully'
@@ -157,36 +148,20 @@ router.post('/changePass', (req, res)=>{
          
                   }
                 })
-               }
-                
-             })
-           }else{
-            console.log(oldpassword);
-            req.flash(
-            'error_msg',
-            'Entered Old password is incorrect'
-            );
-            res.redirect('/forgotPassword');
-           }
+         }else{
+          errors.push({msg: "No user with that email is found"})
+          res.render('forgotPass', {
+            title: "Forgot Password",
+            errors,
+            email,
+            newpassword1,
+            newpassword2
+          });
          }
        })
-
-        // bcrypt.genSalt(10, (err, salt) => {
-        //   bcrypt.hash(newUser.password, salt, (err, hash) => {
-        //     if (err) throw err;
-        //     newUser.password = hash;
-        //     newUser
-        //       .save()
-        //       .then(user => {
-        //         
-        //       })
-        //       .catch(err => console.log(err));
-        //   });
-        // });
       }
     });
-  }
-})
+
 
 
 //Delete a user by id
@@ -222,7 +197,7 @@ router.get('/displayUser/:id', (req, res)=>{
 })
 
 //Update user by id
-router.get('/editUser/:id', (req, res)=>{
+router.get('/editUser/:id', ensureAuthenticated, (req, res)=>{
   const id = req.params.id;
   User.findOne({_id:id}, (err, user)=>{
     if(err){
@@ -242,7 +217,7 @@ router.get('/editUser/:id', (req, res)=>{
 })
 //Post request for updation of user details
 
-router.post('/editData', (req, res)=>{
+router.post('/editData',ensureAuthenticated,  (req, res)=>{
   const {_id, name, family, covid} = req.body;
   const isCovidPositive = covid=='Yes'? true: false;
   // res.send(isCovidPositive);
@@ -261,8 +236,8 @@ router.post('/editData', (req, res)=>{
     }
   })
 })
-
-router.get('/download', ensureAuthenticated, checkRole('Admin'), async (req, res)=>{
+// ensureAuthenticated, checkRole('Admin'), 
+router.get('/displayComments',async (req, res)=>{
   const comments = await Comment.find({});
 
   let result={
@@ -282,7 +257,7 @@ router.get('/download', ensureAuthenticated, checkRole('Admin'), async (req, res
     console.log('Written!');
   });
   // res.send("Success");
-  res.download('./public/pdfs/comments.json');
-  //  res.render('displayComments', {result, title: "Comments"});
+  // res.download('./public/pdfs/comments.json');
+   res.render('displayComments', {comments: result.comments, title: "Comments"});
 })
 module.exports = router;
