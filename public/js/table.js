@@ -11,6 +11,7 @@ $(window).on('load', async ()=>{
     const sumCases = totalCases.reduce(reducer);
     const sumCured = cured.reduce(reducer);
     const sumDeaths = deaths.reduce(reducer);
+    //Store the total respective cases in their respective divs
     $('#active').text(sumCases);
     $('#cured').text(sumCured);
     $('#deaths').text(sumDeaths);
@@ -62,6 +63,7 @@ const displayTable = (i)=>{
 
     
 }
+//The following shows the covid data for all the states
 const showFullTable = async ()=>{
     const {states, activeCases, cured, deaths} = covidInfo;
     let tableData ;
@@ -97,6 +99,7 @@ const showFullTable = async ()=>{
         stateTable.style.display = 'none';
     }
 }
+//This is used to sort the table based on column headers
 function sortTable(n, isNumber) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("allStates");

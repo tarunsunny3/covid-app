@@ -1,6 +1,6 @@
 
 
-<% include ./partials/navBar %>
+
 <div class="container-fluid mt-4" >
     <% include ./partials/messages %>
 </div>
@@ -9,7 +9,7 @@
         UserData
     </h1>
     <table class="table table-info table-striped table-hover">
-        <tr>
+        <tr class="thead-dark">
             <th>Name</th>
             <th>Family</th>
             <th>Email</th>
@@ -17,8 +17,8 @@
             <th colspan="2">Action</th>
         </tr>
         <!-- Get data of users from the express backend and loop through it to display data-->
-        <% results.forEach((user)=>{%>
-            <tr>
+        <% results.forEach((user, i)=>{%>
+            <tr class="table <%= i % 2==0 ? 'table-warning' : 'table-light'%>">
                 <td><%- user.name %></td>
                 <td><%- user.numbOfFamilyMembers %></td>
                 <td><%- user.email %></td>

@@ -1,31 +1,31 @@
 const express = require('express');
 const router = express.Router();
-// const moment = require('moment');
+
 const Comment = require('../models/Comment');
 const Covid = require('../models/CovidData');
 const { ensureAuthenticated, forwardAuthenticated, checkRole} = require('../config/auth');
 const {states, main1} = require('../util/getCovid');
 
-// app.use(express.static('public'));
+
 router.get('/showChart', (req, res)=>{
-    // res.sendFile(__dirname+"/index.html");
+
     res.render('chartPage');
 });
+//Fetch the covid data and store it in the database
 router.get('/storeCovidData', async (req, res)=>{
   await main1();
 })
 router.get('/getData',  async (req, res)=>{
-  
+  //Retrieve the data from the db
   Covid.find({}).sort({date: -1}).exec((err, result)=>{
     const { totalCases, cured, deaths} = result[0];
     //Send the whole latest data to the client
    res.json({states, totalCases, cured, deaths});
 })
-    // res.json(data);
+
 
 });
 router.get('/covidTable', async (req, res)=>{
-  // main1();
   Covid.find({}).sort({date: -1}).exec((err, result)=>{
         const { totalCases, cured, deaths} = result[0];
         //Send the whole latest data to the client
@@ -33,7 +33,7 @@ router.get('/covidTable', async (req, res)=>{
   })
 })
 router.get('/chart',  (req, res)=>{
-  // await main1();
+
   res.render('covidChart', {title: "Chart"});
 })
 router.get('/getDataById/:index', async (req, res)=>{
@@ -45,8 +45,6 @@ router.get('/getDataById/:index', async (req, res)=>{
     res.json({state: states[index], total: totalCases[index], cured: cured[index], deaths: deaths[index]});
 })
 
-
-  // res.json("hello");
 })
 // Welcome Page
 
@@ -54,14 +52,19 @@ router.get('/', (req, res) => {
 
   res.render('welcome', {title: "Welcome"});
 });
+//About Page
+router.get('/about', (req, res)=>{
+  res.render('about.ejs', {title: "About Page"});
+})
 
-// Dashboard
+// Dashboard User
 router.get('/dashboard',  ensureAuthenticated, checkRole("User"),(req, res) =>{
   res.render('dashboard', {
     user: req.user,
     title: req.user.name
   });
 });
+//Admin Dashboard
 router.get('/dashboard-admin', ensureAuthenticated, checkRole("Admin"),(req, res) =>{
 
     res.render('dashboard-admin', {

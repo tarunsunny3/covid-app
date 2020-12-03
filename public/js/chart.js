@@ -7,6 +7,7 @@ $(window).on('load', async ()=>{
     labels = states;
     renderChart(totalCases, cured, deaths, labels);
 });
+//Plotting the covid data using CHARTjs JavaScript library
 function renderChart(totalCases, cured, deaths, labels) {
     // document.querySelector("body").style.width = "90vw";
     var ctx = document.getElementById("myChart").getContext('2d');
@@ -35,6 +36,7 @@ function renderChart(totalCases, cured, deaths, labels) {
             }, 
         ]
         },
+        //Plot the data  using chartjs
         options: {
             title: {
                 display: true,
