@@ -1,4 +1,6 @@
 # COVID data of India using node and puppeteer
+### Link to the app
+https://covid-app-v1.herokuapp.com/  
 
 This is an app which displays the COVID data like number of active cases, no of deaths, etc of all the states and
 Also it provides a user login and registration app using Node.js, Express, Passport, Mongoose, EJS and some other packages.
