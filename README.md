@@ -30,3 +30,6 @@ User can view and update his data
 User can see covid data  
 In the form of Table - statewise  
 In the form of a chart  
+
+### References
+https://github.com/bradtraversy/node_passport_login
