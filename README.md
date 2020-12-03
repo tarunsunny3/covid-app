@@ -19,14 +19,14 @@ $ npm run dev
 Open "config/keys.js" and add your MongoDB URI, local or Atlas
 
 # Admin
-Admin can add view users data
-Can edit users data
-Can delete them
-Can view users comments
-Can download users' comments in the form of json
+Admin can add view users data  
+Can edit users data  
+Can delete them  
+Can view users comments  
+Can download users' comments in the form of json  
 
 # User
-User can view and update his data
-User can see covid data
-In the form of Table - statewise
-In the form of a chart
+User can view and update his data  
+User can see covid data  
+In the form of Table - statewise  
+In the form of a chart  
