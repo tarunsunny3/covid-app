@@ -4,7 +4,12 @@ body {
 .card {
   background-color: #dbf6e9;
 }
-
+.center {
+  text-align: center;
+}
+.white {
+  color: white;
+}
 /*Covid Positive/negative*/
 .covidPositive {
   background-color: white;
@@ -152,7 +157,7 @@ body {
     transform: rotate(360deg);
   }
 }
-
+/* Loading box rotation according to some percentage */
 @keyframes loader-inner {
   0% {
     height: 0%;
